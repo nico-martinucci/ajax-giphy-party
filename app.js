@@ -2,8 +2,10 @@
 
 /**
  * gets search term from form input and returns it
- * @returns form input
+ * @returns form input is then used as a parameter in api get
+ * the url 
  */
+
 function getFormInput() {
     return $("#search-term").val();
 }
@@ -32,7 +34,7 @@ async function getGIF(input) {
 // function to update dom with new gif
 function addGIF(url) {
     let $gif = $("<img />").attr("src", url);
-    $("#gifs").append(gif);
+    $("#gifs").append($gif);
 }
 
 // controller function for the search button
