@@ -1,11 +1,18 @@
 "use strict";
 
-// function to get input data
+/**
+ * gets search term from form input and returns it
+ * @returns form input
+ */
 function getFormInput() {
     return $("#search-term").val();
 }
 
-// async function to request gif from giphy
+/**
+ * async function that grabs gif from GIPHY api and calls function
+ * too add it to the page
+ * @param {string} input - input from html form
+ */
 async function getGIF(input) {
     const randomOffset = Math.round(Math.random() * 4999);
 
@@ -17,33 +24,33 @@ async function getGIF(input) {
             offset: randomOffset
         }
     })
-    console.log("the gif stuff is ", gifPull)
+
+    let url = gifPull.data.data[0].images.original.url;
+    addGIF(url);
 }
 
 // function to update dom with new gif
-function addGIF() {
-
+function addGIF(url) {
+    let $gif = $("<img />").attr("src", url);
+    $("#gifs").append(gif);
 }
 
 // controller function for the search button
 function getInputAndUpdatePage(evt) {
     evt.preventDefault();
     let formInput = getFormInput();
-    getGIF(formInput);
+    let gIFURL = getGIF(formInput);
+    // addGIF(gIFURL);
 }
 
 // function to clear the gifs div
-function removeGIFs() {
+function removeGIFs(evt) {
+    evt.preventDefault();
     $("#gifs").empty();
 }
-
 
 // listener for search button
 $("#search").on("click", getInputAndUpdatePage);
 
 // listener for remove button
 $("#remove-all").on("click", removeGIFs);
-
-
-//api key:
-// L1vsHUAqEURXHTDiIQcxZALO77jEe9E7
