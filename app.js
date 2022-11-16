@@ -28,7 +28,8 @@ async function getGIF(input) {
     })
 
     let url = gifPull.data.data[0].images.original.url;
-    addGIF(url);
+    
+    return url;
 }
 
 // function to update dom with new gif
@@ -38,11 +39,11 @@ function addGIF(url) {
 }
 
 // controller function for the search button
-function getInputAndUpdatePage(evt) {
+async function getInputAndUpdatePage(evt) {
     evt.preventDefault();
     let formInput = getFormInput();
-    let gIFURL = getGIF(formInput);
-    // addGIF(gIFURL);
+    let gIFURL = await getGIF(formInput);
+    addGIF(gIFURL);
 }
 
 // function to clear the gifs div
